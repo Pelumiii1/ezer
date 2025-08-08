@@ -5,6 +5,6 @@ import { NuxtLink } from '#components';
 
 <template>
     <div>
-        <NuxtLink to="/editor">Home</NuxtLink>
+        <NuxtLink to="/editor">Open Editor</NuxtLink>
     </div>
 </template>
