@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { NuxtImg } from "#components";
+import LeftTools from "@/components/Editor/LeftTools.vue";
+
 import {
   Select,
   SelectContent,
@@ -11,12 +13,11 @@ import {
 
 const colorMode = useColorMode();
 
-const toggle = () => {
-  colorMode.preference = colorMode.preference === "dark" ? "light" : "dark";
-};
-
 const tabs = ["Social Media", "Poster", "Shoe Promo", "Wedding Anniversary"];
 const activeTab = ref(tabs[0]);
+
+const {data} = useFetch('/api/hello')
+console.log(data.value)
 
 function setActiveTab(tab: string) {
   activeTab.value = tab;
@@ -81,10 +82,31 @@ function setActiveTab(tab: string) {
         <div class="border-l mx-5" />
 
         <div class="flex gap-5 items-center">
-          <img :src="colorMode.value === 'dark' ? '/icons/B-white.png' : '/icons/B.png'" alt="" width="15" height="15" >
-          
-          <img :src="colorMode.value === 'dark' ? '/icons/U-white.png' : '/icons/U.png'" alt="" width="15" height="15" >
-          <img :src="colorMode.value === 'dark' ? '/icons/I-white.png' : '/icons/I.png'" alt="" width="10" height="10" >
+          <img
+            :src="
+              colorMode.value === 'dark' ? '/icons/B-white.png' : '/icons/B.png'
+            "
+            alt=""
+            width="15"
+            height="15"
+          />
+
+          <img
+            :src="
+              colorMode.value === 'dark' ? '/icons/U-white.png' : '/icons/U.png'
+            "
+            alt=""
+            width="15"
+            height="15"
+          />
+          <img
+            :src="
+              colorMode.value === 'dark' ? '/icons/I-white.png' : '/icons/I.png'
+            "
+            alt=""
+            width="10"
+            height="10"
+          />
         </div>
         <div class="border-l mx-5" />
 
@@ -122,102 +144,76 @@ function setActiveTab(tab: string) {
         <div class="border-l mx-5" />
 
         <div class="flex gap-5 items-center">
-          <img :src="colorMode.value === 'dark' ? '/icons/align-left-white.png' : '/icons/align-left.png'" alt="" width="20" height="20" >
-          <img :src="colorMode.value === 'dark' ? '/icons/align-center-white.png' : '/icons/align-center.png'" alt="" width="20" height="20" >
-          <img :src="colorMode.value === 'dark' ? '/icons/align-right-white.png' : '/icons/align-right.png'" alt="" width="20" height="20" >
+          <img
+            :src="
+              colorMode.value === 'dark'
+                ? '/icons/align-left-white.png'
+                : '/icons/align-left.png'
+            "
+            alt=""
+            width="20"
+            height="20"
+          />
+          <img
+            :src="
+              colorMode.value === 'dark'
+                ? '/icons/align-center-white.png'
+                : '/icons/align-center.png'
+            "
+            alt=""
+            width="20"
+            height="20"
+          />
+          <img
+            :src="
+              colorMode.value === 'dark'
+                ? '/icons/align-right-white.png'
+                : '/icons/align-right.png'
+            "
+            alt=""
+            width="20"
+            height="20"
+          />
         </div>
         <div class="border-l mx-5" />
         <div class="flex gap-5 items-center">
-          <img :src=" colorMode.value === 'dark' ? '/icons/number-list-white.png' : '/icons/number-list.png'" alt="" width="20" height="20" >
-          <img :src="colorMode.value === 'dark' ? '/icons/bullet-list-white.png' : '/icons/bullet-list.png'" alt="" width="20" height="20" >
+          <img
+            :src="
+              colorMode.value === 'dark'
+                ? '/icons/number-list-white.png'
+                : '/icons/number-list.png'
+            "
+            alt=""
+            width="20"
+            height="20"
+          />
+          <img
+            :src="
+              colorMode.value === 'dark'
+                ? '/icons/bullet-list-white.png'
+                : '/icons/bullet-list.png'
+            "
+            alt=""
+            width="20"
+            height="20"
+          />
         </div>
       </div>
-      <button class="bg-gradient-to-r from-[#FF9500] via-[#FF00D0] to-[#FF9EED] rounded-[24px] p-[1.5px]">
-      <div class="text-[12px] dark:bg-gray-900 text-black bg-white dark:text-white  px-5 py-2 rounded-[18px] ">
-        Download
-      </div>
+      <button
+        class="bg-gradient-to-r from-[#FF9500] via-[#FF00D0] to-[#FF9EED] rounded-[24px] p-[1.5px]"
+      >
+        <div
+          class="text-[12px] dark:bg-gray-900 text-black bg-white dark:text-white px-5 py-2 rounded-[18px]"
+        >
+          Download
+        </div>
       </button>
-    
     </div>
 
     <div class="h-[80vh] flex">
       <!-- Left Tools  -->
-      <div
-        class="w-[90px] bg-white dark:bg-[#24242480] h-full space-y-15 flex flex-col items-center py-10"
-      >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/cursor-white.png'
-              : '/icons/cursor.png'
-          "
-          alt=""
-          width="20"
-          height="20"
-          @click="toggle"
-        >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/text-white.png'
-              : '/icons/text.png'
-          "
-          alt=""
-          width="15"
-          height="15"
-        >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/pen-white.png'
-              : '/icons/pen.png'
-          "
-          alt=""
-          width="20"
-          height="20"
-        >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/brush-white.png'
-              : '/icons/brush.png'
-          "
-          alt=""
-          width="20"
-          height="20"
-        >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/resize-white.png'
-              : '/icons/resize.png'
-          "
-          alt=""
-          width="20"
-          height="20"
-        >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/crop-white.png'
-              : '/icons/crop.png'
-          "
-          alt=""
-          width="20"
-          height="20"
-        >
-        <img
-          :src="
-            colorMode.value === 'dark'
-              ? '/icons/paint-white.png'
-              : '/icons/paint.png'
-          "
-          alt=""
-          width="20"
-          height="20"
-        >
-      </div>
-      
+      <LeftTools />
+
       <!-- Canvas  -->
       <div
         class="bg-gray-200 dark:bg-black w-full h-full flex justify-center items-center"
@@ -228,7 +224,7 @@ function setActiveTab(tab: string) {
           alt=""
           class="w-[60vw] h-[70vh] object-contain"
           fetchpriority="high"
-        >
+        />
       </div>
 
       <!-- Right Tools -->
@@ -244,7 +240,7 @@ function setActiveTab(tab: string) {
           alt=""
           width="20"
           height="20"
-        >
+        />
         <img
           :src="
             colorMode.value === 'dark'
@@ -254,7 +250,7 @@ function setActiveTab(tab: string) {
           alt=""
           width="20"
           height="20"
-        >
+        />
         <img
           :src="
             colorMode.value === 'dark'
@@ -264,7 +260,7 @@ function setActiveTab(tab: string) {
           alt=""
           width="20"
           height="20"
-        >
+        />
         <img
           :src="
             colorMode.value === 'dark'
@@ -274,7 +270,7 @@ function setActiveTab(tab: string) {
           alt=""
           width="20"
           height="20"
-        >
+        />
         <img
           :src="
             colorMode.value === 'dark'
@@ -284,7 +280,7 @@ function setActiveTab(tab: string) {
           alt=""
           width="20"
           height="20"
-        >
+        />
       </div>
     </div>
   </div>

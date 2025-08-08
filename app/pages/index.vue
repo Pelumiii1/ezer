@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { NuxtLink } from '#components';
-
+import { NuxtLink } from "#components";
 </script>
 
 <template>
-    <div>
-        <NuxtLink to="/editor">Open Editor</NuxtLink>
-    </div>
+  <div>
+    <NuxtLink to="/editor"> Open Editor </NuxtLink>
+  </div>
 </template>

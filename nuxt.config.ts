@@ -30,4 +30,10 @@ export default defineNuxtConfig({
     fallback: "light", // If system is not available
     classSuffix: "", // This gives you `class="dark"` instead of `dark-mode`
   },
+
+  nitro: {
+    routeRules: {
+      "/api/**": { cors: true },
+    },
+  },
 });
