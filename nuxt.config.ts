@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
+    "@pinia/nuxt",
   ],
   vite: {
     plugins: [tailwindcss()],
@@ -29,11 +30,5 @@ export default defineNuxtConfig({
     preference: "system", // Default theme (system, light, or dark)
     fallback: "light", // If system is not available
     classSuffix: "", // This gives you `class="dark"` instead of `dark-mode`
-  },
-
-  nitro: {
-    routeRules: {
-      "/api/**": { cors: true },
-    },
   },
 });

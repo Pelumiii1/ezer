@@ -1,15 +1,19 @@
 <script setup lang="ts">
+import {addText} from "@/utils/FabricsHelper"
+
 const colorMode = useColorMode();
-const toggle = () => {
-  colorMode.value = colorMode.value === "dark" ? "light" : "dark";
-};
+// const toggle = () => {
+//   colorMode.value = colorMode.value === "dark" ? "light" : "dark";
+// };
+
+
 </script>
 
 <template>
   <div
     class="w-[90px] bg-white dark:bg-[#24242480] h-full space-y-15 flex flex-col items-center py-10"
   >
-    <img
+    <NuxtImg
       :src="
         colorMode.value === 'dark'
           ? '/icons/cursor-white.png'
@@ -18,7 +22,6 @@ const toggle = () => {
       alt=""
       width="20"
       height="20"
-      @click="toggle"
     />
     <img
       :src="
@@ -27,7 +30,9 @@ const toggle = () => {
       alt=""
       width="15"
       height="15"
-    />
+      class="cursor-pointer"
+      @click="addText"
+    >
     <img
       :src="
         colorMode.value === 'dark' ? '/icons/pen-white.png' : '/icons/pen.png'
@@ -35,7 +40,7 @@ const toggle = () => {
       alt=""
       width="20"
       height="20"
-    />
+    >
     <img
       :src="
         colorMode.value === 'dark'
@@ -45,7 +50,7 @@ const toggle = () => {
       alt=""
       width="20"
       height="20"
-    />
+    >
     <img
       :src="
         colorMode.value === 'dark'
@@ -55,7 +60,7 @@ const toggle = () => {
       alt=""
       width="20"
       height="20"
-    />
+    >
     <img
       :src="
         colorMode.value === 'dark' ? '/icons/crop-white.png' : '/icons/crop.png'
@@ -63,7 +68,7 @@ const toggle = () => {
       alt=""
       width="20"
       height="20"
-    />
+    >
     <img
       :src="
         colorMode.value === 'dark'
@@ -73,6 +78,6 @@ const toggle = () => {
       alt=""
       width="20"
       height="20"
-    />
+    >
   </div>
 </template>
