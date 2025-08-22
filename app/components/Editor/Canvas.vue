@@ -8,6 +8,7 @@ const canvasRef = ref<HTMLCanvasElement | null>(null);
 const fabricCanvas = ref<Canvas | null>(null);
 
 onMounted(() => {
+  //initialize canvas
   if (canvasRef.value) {
     fabricCanvas.value = new Canvas(canvasRef.value);
     fabricCanvas.value.backgroundColor = "white";
@@ -19,12 +20,26 @@ onMounted(() => {
 
   window.addEventListener("keydown", handleDelete);
 
+  // Handle Scaling events
+  fabricCanvas.value?.on("object:scaling", handleScaling);
+
+  // Handle mouse down events
   fabricCanvas.value?.on("mouse:down", handleMouseDown);
-  fabricCanvas.value?.off("mouse:dblclick", () => {
-    console.log("exit");
-  });
+  // Handle double click events
   fabricCanvas.value?.on("mouse:dblclick", handleDoubleClick);
 });
+
+function handleScaling() {
+  const activeObject = fabricCanvas.value?.getActiveObject();
+  if (!activeObject) return;
+
+  if (activeObject.type === "i-text") {
+    activeObject.set({
+      scaleX: 1,
+      scaleY: 1,
+    });
+  }
+}
 
 function deleteActiveObject() {
   const activeObject = fabricCanvas.value?.getActiveObject();

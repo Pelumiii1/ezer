@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectGroup,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+import { Icon } from "#components";
 import { useEditorStore } from "@/stores/editor";
-import { underlineText, boldText, italicText, handleColorChange, alignText } from "@/utils/FabricsHelper";
+// import { underlineText, boldText, italicText, handleColorChange, alignText } from "@/utils/FabricsHelper";
 
 const editorStore = useEditorStore();
 const selectedFont = ref<string | null>(null);
 
-const isBold = computed(() => {
-  const activeObject = editorStore.canvas?.getActiveObject();
-  return activeObject?.get("fontWeight") === "bold";
-});
+// const isBold = computed(() => {
+//   const activeObject = editorStore.canvas?.getActiveObject();
+//   return activeObject?.get("fontWeight") === "bold";
+// });
 
 // const isItalic = computed(() => {
 //   const activeObject = editorStore.canvas?.getActiveObject();
@@ -45,14 +46,14 @@ watch(selectedFont, (newFont) => {
 
 
 
-const colorMode = useColorMode();
+// const colorMode = useColorMode();
 </script>
 
 <template>
   <div
     class="flex items-center justify-between h-[10vh] bg-white dark:bg-[#24242480] border-y px-5"
   >
-    <div class="flex">
+    <!-- <div class="flex">
       <Select v-model="selectedFont">
         <SelectTrigger class="bg-[#D2D2D233]">
           <SelectValue placeholder="Select a font" />
@@ -228,6 +229,26 @@ const colorMode = useColorMode();
           height="20"
         >
       </div>
+    </div> -->
+    
+    <div class="flex items-center gap-5">
+      <button @click="addRectangle">
+     <Icon name="ic:twotone-rectangle" size="50"  />
+      </button>
+
+         <button @click="addCircle">
+     <Icon name="ic:twotone-circle" size="50"  />
+      </button>
+
+
+          <button @click="addTriangle">
+     <Icon name="icon-park-twotone:triangle" size="50"  />
+      </button>
+
+
+          <button @click="addStar">
+     <Icon name="ic:twotone-star" size="50"  />
+      </button>
     </div>
     <button
       class="bg-gradient-to-r from-[#FF9500] via-[#FF00D0] to-[#FF9EED] rounded-[24px] p-[1.5px]"
