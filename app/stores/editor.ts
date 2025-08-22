@@ -6,6 +6,7 @@ export const useEditorStore = defineStore("editor", {
     canvas: null as Canvas | null,
     currentFont: "Times New Roman",
     current: 400,
+    currentColor: "#000000",
   }),
   actions: {},
 });

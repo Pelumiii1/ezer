@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useEditorStore } from "@/stores/editor";
-import { underlineText, boldText, italicText } from "@/utils/FabricsHelper";
+import { underlineText, boldText, italicText, handleColorChange, alignText } from "@/utils/FabricsHelper";
 
 const editorStore = useEditorStore();
 const selectedFont = ref<string | null>(null);
@@ -18,15 +18,15 @@ const isBold = computed(() => {
   return activeObject?.get("fontWeight") === "bold";
 });
 
-const isItalic = computed(() => {
-  const activeObject = editorStore.canvas?.getActiveObject();
-  return activeObject?.get("fontStyle") === "italic";
-});
+// const isItalic = computed(() => {
+//   const activeObject = editorStore.canvas?.getActiveObject();
+//   return activeObject?.get("fontStyle") === "italic";
+// });
 
-const isUnderline = computed(() => {
-  const activeObject = editorStore.canvas?.getActiveObject();
-  return activeObject?.get("underline") === true;
-});
+// const isUnderline = computed(() => {
+//   const activeObject = editorStore.canvas?.getActiveObject();
+//   return activeObject?.get("underline") === true;
+// });
 
 onMounted(() => {
   selectedFont.value = editorStore.currentFont || null;
@@ -42,6 +42,8 @@ watch(selectedFont, (newFont) => {
     editorStore.canvas?.renderAll();
   }
 });
+
+
 
 const colorMode = useColorMode();
 </script>
@@ -97,21 +99,20 @@ const colorMode = useColorMode();
       <div class="border-l mx-5" />
 
       <div class="flex gap-5 items-center">
-        <div 
-        class="p-2  rounded-sm cursor-pointer"
-          :class="isBold ?'bg-gray-200':''"
+        <div
+          class="p-2 rounded-sm cursor-pointer"
+          :class="isBold ? 'bg-gray-200' : ''"
           @click="boldText"
         >
-    <img
-          :src="
-            colorMode.value === 'dark' ? '/icons/B-white.png' : '/icons/B.png'
-          "
-          alt=""
-          width="15"
-          height="15"
-        >
+          <img
+            :src="
+              colorMode.value === 'dark' ? '/icons/B-white.png' : '/icons/B.png'
+            "
+            alt=""
+            width="15"
+            height="15"
+          >
         </div>
-    
 
         <img
           :src="
@@ -153,9 +154,9 @@ const colorMode = useColorMode();
             height="30"
             class="size-5 text-white cursor-pointer"
           />
-          <div class="h-[28px] w-[28px] bg-white rounded-full" />
-          <div class="h-[28px] w-[28px] bg-[#FF0000] rounded-full" />
-          <div class="h-[28px] w-[28px] bg-[#00FF2F] rounded-full" />
+          <div class="h-[28px] w-[28px] bg-white rounded-full cursor-pointer" @click="handleColorChange('white')" />
+          <div class="h-[28px] w-[28px] bg-[#FF0000] rounded-full cursor-pointer" @click="handleColorChange('#FF0000')"  />
+          <div class="h-[28px] w-[28px] bg-[#00FF2F] rounded-full cursor-pointer" @click="handleColorChange('#00FF2F')" />
           <Icon
             name="uil:angle-right-b"
             width="30"
@@ -177,6 +178,7 @@ const colorMode = useColorMode();
           alt=""
           width="20"
           height="20"
+          @click="()=> alignText('left')"
         >
         <img
           :src="
@@ -187,6 +189,8 @@ const colorMode = useColorMode();
           alt=""
           width="20"
           height="20"
+          @click="()=> alignText('center')"
+
         >
         <img
           :src="
@@ -197,6 +201,8 @@ const colorMode = useColorMode();
           alt=""
           width="20"
           height="20"
+          @click="()=> alignText('right')"
+
         >
       </div>
       <div class="border-l mx-5" />

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {addText} from "@/utils/FabricsHelper"
+import {addText, handleCursor} from "@/utils/FabricsHelper"
 
 const colorMode = useColorMode();
 // const toggle = () => {
 //   colorMode.value = colorMode.value === "dark" ? "light" : "dark";
 // };
+
+
 
 
 </script>
@@ -22,6 +24,8 @@ const colorMode = useColorMode();
       alt=""
       width="20"
       height="20"
+      class="cursor-pointer"
+      @click="handleCursor"
     />
     <img
       :src="
