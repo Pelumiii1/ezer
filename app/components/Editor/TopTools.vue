@@ -1,23 +1,23 @@
 <script setup lang="ts">
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Icon } from "#components";
 import { useEditorStore } from "@/stores/editor";
-// import { underlineText, boldText, italicText, handleColorChange, alignText } from "@/utils/FabricsHelper";
+import { underlineText, boldText, italicText, handleColorChange, alignText } from "@/utils/FabricsHelper";
 
 const editorStore = useEditorStore();
 const selectedFont = ref<string | null>(null);
 
-// const isBold = computed(() => {
-//   const activeObject = editorStore.canvas?.getActiveObject();
-//   return activeObject?.get("fontWeight") === "bold";
-// });
+const isBold = computed(() => {
+  const activeObject = editorStore.canvas?.getActiveObject();
+  return activeObject?.get("fontWeight") === "bold";
+});
 
 // const isItalic = computed(() => {
 //   const activeObject = editorStore.canvas?.getActiveObject();
@@ -46,14 +46,14 @@ watch(selectedFont, (newFont) => {
 
 
 
-// const colorMode = useColorMode();
+const colorMode = useColorMode();
 </script>
 
 <template>
   <div
     class="flex items-center justify-between h-[10vh] bg-white dark:bg-[#24242480] border-y px-5"
   >
-    <!-- <div class="flex">
+     <div class="flex">
       <Select v-model="selectedFont">
         <SelectTrigger class="bg-[#D2D2D233]">
           <SelectValue placeholder="Select a font" />
@@ -171,6 +171,7 @@ watch(selectedFont, (newFont) => {
 
       <div class="flex gap-5 items-center">
         <img
+        class="cursor-pointer"
           :src="
             colorMode.value === 'dark'
               ? '/icons/align-left-white.png'
@@ -182,6 +183,7 @@ watch(selectedFont, (newFont) => {
           @click="()=> alignText('left')"
         >
         <img
+        class="cursor-pointer"
           :src="
             colorMode.value === 'dark'
               ? '/icons/align-center-white.png'
@@ -194,6 +196,7 @@ watch(selectedFont, (newFont) => {
 
         >
         <img
+        class="cursor-pointer"
           :src="
             colorMode.value === 'dark'
               ? '/icons/align-right-white.png'
@@ -229,9 +232,9 @@ watch(selectedFont, (newFont) => {
           height="20"
         >
       </div>
-    </div> -->
+    </div>
     
-    <div class="flex items-center gap-5">
+    <!-- <div class="flex items-center gap-5">
       <button @click="addRectangle">
      <Icon name="ic:twotone-rectangle" size="50"  />
       </button>
@@ -249,7 +252,7 @@ watch(selectedFont, (newFont) => {
           <button @click="addStar">
      <Icon name="ic:twotone-star" size="50"  />
       </button>
-    </div>
+    </div> -->
     <button
       class="bg-gradient-to-r from-[#FF9500] via-[#FF00D0] to-[#FF9EED] rounded-[24px] p-[1.5px]"
     >
