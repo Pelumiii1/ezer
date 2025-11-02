@@ -148,7 +148,7 @@ function handleColorChange(color: string) {
           </SelectContent>
         </Select>
       </div>
-      <img src="/icons/line.png" alt="" width="1" height="1" />
+      <img src="/icons/Line.png" alt="" width="1" height="1" />
 
       <div class="flex items-center gap-2">
         <!-- bold Text Icon  -->
@@ -223,7 +223,7 @@ function handleColorChange(color: string) {
         </button>
       </div>
 
-      <img src="/icons/line.png" alt="" width="1" height="1" />
+      <img src="/icons/Line.png" alt="" width="1" height="1" />
 
       <input
         v-model="color"
@@ -235,7 +235,7 @@ function handleColorChange(color: string) {
             }"
       />
 
-      <img src="/icons/line.png" alt="" width="1" height="1" />
+      <img src="/icons/Line.png" alt="" width="1" height="1" />
 
       <div class="flex items-center gap-3">
         <!-- Left Align Icon  -->
