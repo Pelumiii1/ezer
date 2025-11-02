@@ -1,31 +1,53 @@
-import { Circle, IText, Polygon, Rect, Triangle } from "fabric";
+import { Circle, FabricImage, IText, Polygon, Rect, Triangle } from "fabric";
+import { markRaw } from "vue";
 
-export function addText() {
+interface Text {
+  content?: string;
+  fontSize?: number;
+  fontWeight?: number;
+}
+
+export function addText({
+  content = "",
+  fontSize = 20,
+  fontWeight = 700,
+}: Text) {
   const editorStore = useEditorStore();
 
   if (!editorStore.canvas) return;
 
-  const text = new IText("Enter Text", {
-    // Size
-    left: 100,
-    top: 100,
-    minWidth: 100,
+  const text = markRaw(
+    new IText(content ? content : "Enter Text", {
+      // Size
+      left: 200,
+      top: 100,
+      minWidth: 100,
 
-    //Style
-    underline: false,
-    fontFamily: editorStore.currentFont,
-    fill: "black",
-    fontSize: 16,
+      //Style
+      underline: false,
+      fontFamily: editorStore.currentFont,
+      fill: "black",
+      fontSize: fontSize,
+      fontWeight: fontWeight,
 
-    // Interactivity
-    selectable: true,
-    editable: true,
+      // Interactivity
+      selectable: true,
+      editable: true,
+      hasControls: true,
+      hasBorders: true,
 
-    //Border styles and colors
-    // cornerStyle: "circle",
-    // cornerColor: "blue",
-    // cornerSize: 20,
-  });
+      lockRotation: false,
+      lockScalingX: false,
+      lockScalingY: false,
+
+      //Border styles and colors
+      cornerStyle: "circle",
+      cornerColor: "blue",
+      cornerSize: 12,
+      borderColor: "blue",
+      transparentCorners: false,
+    })
+  );
 
   // text.enterEditing();
   editorStore.canvas.add(text);
@@ -44,6 +66,8 @@ export function underlineText() {
   const editorStore = useEditorStore();
 
   if (!editorStore.canvas) return;
+
+  console.log("underlining text");
 
   const activeObject = editorStore.canvas.getActiveObject();
 
@@ -91,6 +115,45 @@ export function italicText() {
   }
 }
 
+export function updateFontChange(size: number) {
+  console.log("updating font size");
+  const editorStore = useEditorStore();
+
+  if (!editorStore.canvas) return;
+
+  const activeObject = editorStore.canvas?.getActiveObject();
+  if (activeObject) {
+    activeObject.set("fontSize", size);
+    editorStore.canvas?.renderAll();
+  }
+}
+
+export function updateFontStyle(style: number) {
+  console.log("updating font style");
+  const editorStore = useEditorStore();
+
+  if (!editorStore.canvas) return;
+
+  const activeObject = editorStore.canvas?.getActiveObject();
+  if (activeObject) {
+    activeObject.set("fontWeight", style);
+    editorStore.canvas?.renderAll();
+  }
+}
+
+export function updateFontFamily(family: string) {
+  console.log("updating font family");
+  const editorStore = useEditorStore();
+
+  if (!editorStore.canvas) return;
+
+  const activeObject = editorStore.canvas?.getActiveObject();
+  if (activeObject) {
+    activeObject.set("fontFamily", family);
+    editorStore.canvas?.renderAll();
+  }
+}
+
 export function handleColorChange(color: string) {
   const editorStore = useEditorStore();
 
@@ -101,7 +164,8 @@ export function handleColorChange(color: string) {
   }
 }
 
-export function alignText(alignment: string) {
+export function alignText(alignment: "left" | "center" | "right") {
+  console.log(`aligning text to the ${alignment}`);
   const editorStore = useEditorStore();
 
   const activeObject = editorStore.canvas?.getActiveObject();
@@ -123,6 +187,8 @@ export function addRectangle() {
     selectable: true,
     // borderColor: "black",
   });
+
+  markRaw(rect);
   editorStore.canvas.add(rect);
   editorStore.canvas.setActiveObject(rect);
   editorStore.canvas.renderAll();
@@ -183,4 +249,51 @@ export function addStar() {
   editorStore.canvas.add(star);
   editorStore.canvas.setActiveObject(star);
   editorStore.canvas.renderAll();
+}
+
+export function uploadImageToCanvas(base64: string) {
+  const editorStore = useEditorStore();
+
+  if (!editorStore.canvas) return;
+
+  FabricImage.fromURL(base64).then((img) => {
+    // Size
+    img.set({
+      left: 100,
+      top: 100,
+      scaleX: 0.2,
+      scaleY: 0.2,
+    });
+
+    // Interactivity
+    img.set({
+      // evented: true,
+      // selectable: true,
+      // hasBorders: true,
+      lockScalingX: false,
+      lockScalingY: false,
+      lockMovementX: false,
+      lockMovementY: false,
+      lockRotation: false,
+    });
+
+    // Border styles
+    img.set({
+      cornerStyle: "circle",
+      cornerColor: "blue",
+      cornerSize: 12,
+      transparentCorners: false,
+      borderColor: "blue",
+      borderScaleFactor: 2.5,
+      borderOpacityWhenMoving: 0.5,
+    });
+
+    markRaw(img);
+    // Add the image to the canvas
+    editorStore.canvas?.add(img);
+    editorStore.canvas?.centerObject(img);
+
+    editorStore.canvas?.setActiveObject(img);
+    editorStore.canvas?.renderAll();
+  });
 }
