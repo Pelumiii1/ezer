@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { NuxtImg } from "#components";
+import { Plus } from "lucide-vue-next";
+
+import { useEditorStore } from "@/stores/editor";
 
 const colorMode = useColorMode();
+const editor = useEditorStore();
 
 const tabs = ["Social Media", "Poster", "Shoe Promo", "Wedding Anniversary"];
 const activeTab = ref(tabs[0]);
@@ -9,15 +12,16 @@ const activeTab = ref(tabs[0]);
 function setActiveTab(tab: string) {
   activeTab.value = tab;
 }
-
 </script>
 
 <template>
-  <div>
+  <div class="[--navbar-height:7vh]">
     <!-- Tabs  -->
-    <div class="flex items-center bg-white dark:bg-[#24242480] h-[10vh]">
+    <div
+      class="flex items-center bg-white dark:bg-[#24242480] h-[var(--navbar-height)]"
+    >
       <div class="px-8">
-        <NuxtImg
+        <img
           :src="
             colorMode.value === 'dark'
               ? '/icons/logo-white.png'
@@ -39,31 +43,49 @@ function setActiveTab(tab: string) {
           {{ tab }}
         </p>
       </button>
+
+      <div class="cursor-pointer border-l p-7 py-3 text-center">
+        <Plus :color="colorMode.value === 'dark' ? 'white' : 'black'" />
+      </div>
     </div>
     <!-- Top Tools  -->
-    <EditorTopTools />
+    <!-- <EditorTopTools /> -->
 
-    <div class="h-[80vh] flex">
+    <div class="h-[93vh] flex">
+      <!-- Left Sidebar  -->
+      <section
+        v-if="editor.isLeftSidebarOpen"
+        class="absolute top-[var(--navbar-height)] left-[80px] w-[400px] bg-white dark:bg-black h-full border-x p-5 z-50"
+      >
+        <EditorAddText />
+      </section>
+
       <!-- Left Tools  -->
       <EditorLeftTools />
 
       <!-- Canvas  -->
       <div
-        class="bg-gray-200 dark:bg-black w-full h-full flex justify-center items-center"
+        class="bg-gray-200 dark:bg-black w-full h-full flex justify-center items-center relative"
       >
-      <ClientOnly>
-        <EditorCanvas />
-      </ClientOnly>
-        <!-- <img
-          src="/images/poster.png"
-          alt=""
-          class="w-[60vw] h-[70vh] object-contain"
-          fetchpriority="high"
-        /> -->
+        <EditorTextToolBar />
+
+        <ClientOnly>
+          <EditorCanvas />
+        </ClientOnly>
       </div>
 
-      <!-- Right Tools -->
-      <EditorRightTools />
+      <div class="flex relative">
+        <!-- right sidebar  -->
+        <section
+          v-if="editor.isRightSidebarOpen"
+          class="absolute top-0 right-[90px] w-[400px] bg-white dark:bg-black h-full border-x p-5 z-50"
+        >
+          <EditorUploadImage />
+        </section>
+
+        <!-- Right Tools -->
+        <EditorRightTools />
+      </div>
     </div>
   </div>
 </template>

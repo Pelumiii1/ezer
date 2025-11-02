@@ -125,3 +125,9 @@
 button {
   cursor: pointer !important;
 }
+
+canvas {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto !important;
+}

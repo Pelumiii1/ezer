@@ -7,8 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Icon } from "#components";
 import { useEditorStore } from "@/stores/editor";
-import { underlineText, boldText, italicText } from "@/utils/FabricsHelper";
+import { underlineText, boldText, italicText, handleColorChange, alignText } from "@/utils/FabricsHelper";
 
 const editorStore = useEditorStore();
 const selectedFont = ref<string | null>(null);
@@ -18,15 +19,15 @@ const isBold = computed(() => {
   return activeObject?.get("fontWeight") === "bold";
 });
 
-const isItalic = computed(() => {
-  const activeObject = editorStore.canvas?.getActiveObject();
-  return activeObject?.get("fontStyle") === "italic";
-});
+// const isItalic = computed(() => {
+//   const activeObject = editorStore.canvas?.getActiveObject();
+//   return activeObject?.get("fontStyle") === "italic";
+// });
 
-const isUnderline = computed(() => {
-  const activeObject = editorStore.canvas?.getActiveObject();
-  return activeObject?.get("underline") === true;
-});
+// const isUnderline = computed(() => {
+//   const activeObject = editorStore.canvas?.getActiveObject();
+//   return activeObject?.get("underline") === true;
+// });
 
 onMounted(() => {
   selectedFont.value = editorStore.currentFont || null;
@@ -43,6 +44,8 @@ watch(selectedFont, (newFont) => {
   }
 });
 
+
+
 const colorMode = useColorMode();
 </script>
 
@@ -50,7 +53,7 @@ const colorMode = useColorMode();
   <div
     class="flex items-center justify-between h-[10vh] bg-white dark:bg-[#24242480] border-y px-5"
   >
-    <div class="flex">
+     <div class="flex">
       <Select v-model="selectedFont">
         <SelectTrigger class="bg-[#D2D2D233]">
           <SelectValue placeholder="Select a font" />
@@ -97,21 +100,20 @@ const colorMode = useColorMode();
       <div class="border-l mx-5" />
 
       <div class="flex gap-5 items-center">
-        <div 
-        class="p-2  rounded-sm cursor-pointer"
-          :class="isBold ?'bg-gray-200':''"
+        <div
+          class="p-2 rounded-sm cursor-pointer"
+          :class="isBold ? 'bg-gray-200' : ''"
           @click="boldText"
         >
-    <img
-          :src="
-            colorMode.value === 'dark' ? '/icons/B-white.png' : '/icons/B.png'
-          "
-          alt=""
-          width="15"
-          height="15"
-        >
+          <img
+            :src="
+              colorMode.value === 'dark' ? '/icons/B-white.png' : '/icons/B.png'
+            "
+            alt=""
+            width="15"
+            height="15"
+          >
         </div>
-    
 
         <img
           :src="
@@ -153,9 +155,9 @@ const colorMode = useColorMode();
             height="30"
             class="size-5 text-white cursor-pointer"
           />
-          <div class="h-[28px] w-[28px] bg-white rounded-full" />
-          <div class="h-[28px] w-[28px] bg-[#FF0000] rounded-full" />
-          <div class="h-[28px] w-[28px] bg-[#00FF2F] rounded-full" />
+          <div class="h-[28px] w-[28px] bg-white rounded-full cursor-pointer" @click="handleColorChange('white')" />
+          <div class="h-[28px] w-[28px] bg-[#FF0000] rounded-full cursor-pointer" @click="handleColorChange('#FF0000')"  />
+          <div class="h-[28px] w-[28px] bg-[#00FF2F] rounded-full cursor-pointer" @click="handleColorChange('#00FF2F')" />
           <Icon
             name="uil:angle-right-b"
             width="30"
@@ -169,6 +171,7 @@ const colorMode = useColorMode();
 
       <div class="flex gap-5 items-center">
         <img
+        class="cursor-pointer"
           :src="
             colorMode.value === 'dark'
               ? '/icons/align-left-white.png'
@@ -177,8 +180,10 @@ const colorMode = useColorMode();
           alt=""
           width="20"
           height="20"
+          @click="()=> alignText('left')"
         >
         <img
+        class="cursor-pointer"
           :src="
             colorMode.value === 'dark'
               ? '/icons/align-center-white.png'
@@ -187,8 +192,11 @@ const colorMode = useColorMode();
           alt=""
           width="20"
           height="20"
+          @click="()=> alignText('center')"
+
         >
         <img
+        class="cursor-pointer"
           :src="
             colorMode.value === 'dark'
               ? '/icons/align-right-white.png'
@@ -197,6 +205,8 @@ const colorMode = useColorMode();
           alt=""
           width="20"
           height="20"
+          @click="()=> alignText('right')"
+
         >
       </div>
       <div class="border-l mx-5" />
@@ -223,6 +233,26 @@ const colorMode = useColorMode();
         >
       </div>
     </div>
+    
+    <!-- <div class="flex items-center gap-5">
+      <button @click="addRectangle">
+     <Icon name="ic:twotone-rectangle" size="50"  />
+      </button>
+
+         <button @click="addCircle">
+     <Icon name="ic:twotone-circle" size="50"  />
+      </button>
+
+
+          <button @click="addTriangle">
+     <Icon name="icon-park-twotone:triangle" size="50"  />
+      </button>
+
+
+          <button @click="addStar">
+     <Icon name="ic:twotone-star" size="50"  />
+      </button>
+    </div> -->
     <button
       class="bg-gradient-to-r from-[#FF9500] via-[#FF00D0] to-[#FF9EED] rounded-[24px] p-[1.5px]"
     >
